@@ -1,34 +1,48 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import http from 'http';
+import mongoose from 'mongoose';
+import cors from 'cors';
 
 import Logger from './lib/logger';
-import morganMiddleware from './config/morgan';
+import { config } from './config/index';
 
 dotenv.config();
 
 const app: Express = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morganMiddleware);
+app.use(config.morgan);
 
-const port = process.env.PORT || 3636;
+// Connect To MongoDB
+mongoose
+	.connect(config.mongo.url, {
+		retryWrites: true,
+		w: 'majority'
+	})
+	.then(() => {
+		Logger.info('MongoDB Connected');
+		startServer();
+	})
+	.catch((err) => {
+		Logger.error(err);
+	});
 
-app.get('/logger', (req: Request, res: Response) => {
-  Logger.error('Error');
-  Logger.warn('Warn');
-  Logger.info('Info');
-  Logger.http('Http');
-  Logger.debug('Debug');
-  Logger.verbose('Verbose');
-  Logger.silly('Silly');
-  res.send('Hello World!');
-});
+// Starts the Server when MongoDB is connected
+const startServer = () => {
+	// Middlewares
+	app.use(cors());
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+	// Health Check Route
+	app.get('/ping', (req: Request, res: Response) => res.status(200).json({ message: 'pong' }));
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
+	// Route Not Found
+	app.use((req: Request, res: Response) => {
+		res.status(404).json({ message: 'API Not Found' });
+	});
+	// Start Server
+	http.createServer(app).listen(config.server.port, () => {
+		Logger.info(`Server started on port ${config.server.port}`);
+	});
+};
