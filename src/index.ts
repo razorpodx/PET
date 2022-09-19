@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morganMiddleware);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3636;
 
 app.get('/logger', (req: Request, res: Response) => {
   Logger.error('Error');
