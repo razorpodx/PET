@@ -6,9 +6,9 @@ This is a simple template for a typescript server with express.js, winston and m
 
 1. Clone the repository
 2. Run `npm install`
-3. Run 'npm run prepare' to setup git hooks
-4. Run 'npm run start:dev' to start the server in development mode
-5. Run 'npm start' to start the server in production mode
+3. Run `npm run prepare` to setup git hooks
+4. Run `npm run start:dev` to start the server in development mode
+5. Run `npm start` to start the server in production mode
 
 ### How to build
 
@@ -29,4 +29,6 @@ This is a simple template for a typescript server with express.js, winston and m
 
 ## License
 
-MIT
+Private License (c) 2022
+#### Varun Kakkar
+#### Razorpod
