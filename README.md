@@ -25,7 +25,7 @@ This is a simple template for a typescript server with express.js, winston and m
 
 ### How to commit
 
-1. Run `git commit` to commit the project with the pre-commit hook
+1. Run `git commit -m "Commit Message"` to commit the project with the pre-commit hook
 
 ## License
 
