@@ -30,5 +30,7 @@ This is a simple template for a typescript server with express.js, winston and m
 ## License
 
 Private License (c) 2022
+
 #### Varun Kakkar
+
 #### Razorpod
