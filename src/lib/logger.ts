@@ -1,6 +1,6 @@
 import winston from 'winston';
-require('winston-daily-rotate-file');
-
+// Import Winston Daily Rotate File
+import DailyRotateFile from 'winston-daily-rotate-file';
 const { combine, timestamp, printf, colorize, align, json } = winston.format;
 
 const levels = {
@@ -38,27 +38,27 @@ const format = combine(
   printf((info) => `[${info.timestamp}] [${info.level}] ${info.message}`)
 );
 
-const combinedFileRotateTransport = new winston.transports.DailyRotateFile({
+const combinedFileRotateTransport = new DailyRotateFile({
   filename: 'logs/combined-%DATE%.log',
   datePattern: 'YYYY-MM-DD',
   maxFiles: '14d'
 });
 
-const errorFileRotateTransport = new winston.transports.DailyRotateFile({
+const errorFileRotateTransport = new DailyRotateFile({
   filename: 'logs/error-%DATE%.log',
   datePattern: 'YYYY-MM-DD',
   maxFiles: '14d',
   level: 'error'
 });
 
-const warningFileRotateTransport = new winston.transports.DailyRotateFile({
+const warningFileRotateTransport = new DailyRotateFile({
   filename: 'logs/warn-%DATE%.log',
   datePattern: 'YYYY-MM-DD',
   maxFiles: '14d',
   level: 'warn'
 });
 
-const infoFileRotateTransport = new winston.transports.DailyRotateFile({
+const infoFileRotateTransport = new DailyRotateFile({
   filename: 'logs/info-%DATE%.log',
   datePattern: 'YYYY-MM-DD',
   maxFiles: '14d',
