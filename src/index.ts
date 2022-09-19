@@ -7,6 +7,8 @@ import cors from 'cors';
 import Logger from './lib/logger';
 import { config } from './config/index';
 
+import UserRoutes from './routes/User';
+import AccountRoutes from './routes/Account';
 dotenv.config();
 
 const app: Express = express();
@@ -33,6 +35,10 @@ const startServer = () => {
 	app.use(cors());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
+
+	// Routes
+	app.use('/user', UserRoutes);
+	app.use('/account', AccountRoutes);
 
 	// Health Check Route
 	app.get('/ping', (req: Request, res: Response) => res.status(200).json({ message: 'pong' }));
