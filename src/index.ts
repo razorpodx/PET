@@ -1,33 +1,17 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import http from 'http';
-import mongoose from 'mongoose';
 import cors from 'cors';
 
 import Logger from './lib/logger';
 import { config } from './config/index';
 
-import UserRoutes from './routes/User';
-import AccountRoutes from './routes/Account';
+import UserRoutes from '@routes/User';
 dotenv.config();
 
 const app: Express = express();
 
 app.use(config.morgan);
-
-// Connect To MongoDB
-mongoose
-	.connect(config.mongo.url, {
-		retryWrites: true,
-		w: 'majority'
-	})
-	.then(() => {
-		Logger.info('MongoDB Connected');
-		startServer();
-	})
-	.catch((err) => {
-		Logger.error(err);
-	});
 
 // Starts the Server when MongoDB is connected
 const startServer = () => {
@@ -38,7 +22,6 @@ const startServer = () => {
 
 	// Routes
 	app.use('/user', UserRoutes);
-	app.use('/account', AccountRoutes);
 
 	// Health Check Route
 	app.get('/ping', (req: Request, res: Response) => res.status(200).json({ message: 'pong' }));
@@ -52,3 +35,5 @@ const startServer = () => {
 		Logger.info(`Server started on port ${config.server.port}`);
 	});
 };
+
+startServer();

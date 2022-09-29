@@ -11,6 +11,7 @@ const cors_1 = __importDefault(require("cors"));
 const logger_1 = __importDefault(require("./lib/logger"));
 const index_1 = require("./config/index");
 const User_1 = __importDefault(require("./routes/User"));
+const Account_1 = __importDefault(require("./routes/Account"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(index_1.config.morgan);
@@ -35,6 +36,7 @@ const startServer = () => {
     app.use(express_1.default.urlencoded({ extended: true }));
     // Routes
     app.use('/user', User_1.default);
+    app.use('/account', Account_1.default);
     // Health Check Route
     app.get('/ping', (req, res) => res.status(200).json({ message: 'pong' }));
     // Route Not Found

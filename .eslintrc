@@ -16,6 +16,7 @@
         "trailingComma": "none",
         "bracketSpacing": true
       }
-    ]
+    ],
+    "no-console": 2
   }
 }

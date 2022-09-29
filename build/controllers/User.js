@@ -24,8 +24,8 @@ const readAll = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 });
 const readUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
-        const user = yield User_1.default.findById(id);
+        const { userid } = req.params;
+        const user = yield User_1.default.findById(userid);
         if (!user) {
             return res.status(404).json({ message: 'User Not Found' });
         }
@@ -47,9 +47,9 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
+        const { userid } = req.params;
         const { name } = req.body;
-        const user = yield User_1.default.findByIdAndUpdate(id, { name }, { new: true });
+        const user = yield User_1.default.findByIdAndUpdate(userid, { name }, { new: true });
         if (!user) {
             return res.status(404).json({ message: 'User Not Found' });
         }
@@ -61,8 +61,8 @@ const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
-        const user = yield User_1.default.findByIdAndDelete(id);
+        const { userid } = req.params;
+        const user = yield User_1.default.findByIdAndDelete(userid);
         if (!user) {
             return res.status(404).json({ message: 'User Not Found' });
         }
@@ -74,9 +74,9 @@ const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 const updateOrInsertUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
+        const { userid } = req.params;
         const { name } = req.body;
-        const user = yield User_1.default.findByIdAndUpdate(id, { name }, { new: true, upsert: true });
+        const user = yield User_1.default.findByIdAndUpdate(userid, { name }, { new: true, upsert: true });
         if (!user) {
             return res.status(404).json({ message: 'User Not Found' });
         }
