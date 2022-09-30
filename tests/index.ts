@@ -9,24 +9,39 @@ function generateFakeUser() {
 	};
 }
 
+let fakeUser = generateFakeUser();
+
 describe('User controller', () => {
 	it('should create a new user', async () => {
-		let fakeUserPayload = generateFakeUser();
-		const user = await UserService.create(fakeUserPayload);
+		const user = await UserService.create(fakeUser);
 		expect(user).to.be.an('object');
 		expect(user).to.have.property('name');
     expect(user).to.have.property('email');
     expect(user).to.have.property('id');
     expect(user).to.have.property('createdAt');
     expect(user).to.have.property('updatedAt');
-		expect(user.name).to.equal(fakeUserPayload.name);
-		expect(user.email).to.equal(fakeUserPayload.email);
+		expect(user.name).to.equal(fakeUser.name);
+		expect(user.email).to.equal(fakeUser.email);
   });
   it('should get all users', async () => {
-    const users = await UserService.getAll();
+    const users = await UserService.getAll({});
     expect(users).to.be.an('array');
     // Expect the array to have at least one user
     expect(users.length).to.be.greaterThan(0);
+  });
+  it('should get all users with a name filter', async () => {
+    const users = await UserService.getAll({ name: fakeUser.name });
+    expect(users).to.be.an('array');
+    // Expect the array to have at least one user
+    expect(users.length).to.be.greaterThan(0);
+    expect(users[0].name).to.equal(fakeUser.name);
+  });
+  it('should get all users with an email filter', async () => {
+    const users = await UserService.getAll({ email: fakeUser.email });
+    expect(users).to.be.an('array');
+    // Expect the array to have at least one user
+    expect(users.length).to.be.greaterThan(0);
+    expect(users[0].email).to.equal(fakeUser.email);
   });
 });
 
