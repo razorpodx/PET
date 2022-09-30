@@ -3,14 +3,11 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+import UserService from '../services/user/index';
+
 async function createUser(req: Request, res: Response) {
-	const { name, email } = req.body;
-	const user = await prisma.user.create({
-		data: {
-			name,
-			email
-		}
-	});
+	const payload = req.body;
+	const user = await UserService.create(payload, prisma);
 	res.status(200).json(user);
 }
 

@@ -13,8 +13,8 @@ const app: Express = express();
 
 app.use(config.morgan);
 
-// Starts the Server when MongoDB is connected
-const startServer = () => {
+//IIFE to start the server
+(() => {
 	// Middlewares
 	app.use(cors());
 	app.use(express.json());
@@ -34,6 +34,4 @@ const startServer = () => {
 	http.createServer(app).listen(config.server.port, () => {
 		Logger.info(`Server started on port ${config.server.port}`);
 	});
-};
-
-startServer();
+})();
