@@ -6,7 +6,7 @@ import cors from 'cors';
 import Logger from './lib/logger';
 import { config } from './config/index';
 
-import UserRoutes from '@routes/User';
+import UserRoutes from './routes/User';
 dotenv.config();
 
 const app: Express = express();

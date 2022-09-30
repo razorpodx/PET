@@ -1,7 +1,22 @@
 import { Request, Response } from 'express';
 
-async function test(req: Request, res: Response) {
-	res.status(200).json({ message: 'pong' });
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+async function createUser(req: Request, res: Response) {
+	const { name, email } = req.body;
+	const user = await prisma.user.create({
+		data: {
+			name,
+			email
+		}
+	});
+	res.status(200).json(user);
 }
 
-export default { test };
+async function getUsers(req: Request, res: Response) {
+	const users = await prisma.user.findMany();
+	res.status(200).json(users);
+}
+
+export default { createUser, getUsers };
