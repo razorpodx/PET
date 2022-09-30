@@ -20,15 +20,6 @@ const skip = () => {
 };
 
 // Build the morgan middleware
-const morganMiddleware = morgan(
-	// Define message format string (this is the default one).
-	// The message format is made from tokens, and each token is
-	// defined inside the Morgan library.
-	// You can create your custom token to show what do you want from a request.
-	':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms',
-	// Options: in this case, I overwrote the stream and the skip logic.
-	// See the methods above.
-	{ stream, skip }
-);
+const morganMiddleware = morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms', { stream, skip });
 
 export default morganMiddleware;
