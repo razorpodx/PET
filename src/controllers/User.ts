@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserService from '../services/user/index';
+import { create, getAll } from '../services/user/index';
 
 /**
  * Controller `createUser` : Controller to create a new user
@@ -32,9 +32,9 @@ import UserService from '../services/user/index';
  * 	.then((data) => console.log(data));
  * })
  */
-async function createUser(req: Request, res: Response) {
+export async function createUser(req: Request, res: Response) {
 	const payload = req.body;
-	const user = await UserService.create(payload);
+	const user = await create(payload);
 	res.status(200).json(user);
 }
 
@@ -56,10 +56,8 @@ async function createUser(req: Request, res: Response) {
  * 	.then((data) => console.log(data));
  * })
  */
-async function getUsers(req: Request, res: Response) {
+export async function getUsers(req: Request, res: Response) {
 	const query = req.query ?? {};
-	const users = await UserService.getAll(query);
+	const users = await getAll(query);
 	res.status(200).json(users);
 }
-
-export default { createUser, getUsers };

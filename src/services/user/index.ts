@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
  * @param payload : the user payload
  * @returns the created user
  */
-async function create(payload: { name: string; email: string }) {
+export async function create(payload: { name: string; email: string }) {
 	const newUser = await prisma.user.create({
 		data: {
 			name: payload.name,
@@ -22,7 +22,7 @@ async function create(payload: { name: string; email: string }) {
  * @returns all users
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function getAll(query: any) {
+export async function getAll(query: any) {
 	let dbquery = {};
 	if (query.name) {
 		dbquery = {
@@ -47,8 +47,3 @@ async function getAll(query: any) {
 	const users = await prisma.user.findMany(dbquery);
 	return users;
 }
-
-export default {
-	create,
-	getAll
-};
