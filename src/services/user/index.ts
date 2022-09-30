@@ -1,4 +1,6 @@
-async function create(payload: any, prisma: any) {
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+async function create(payload: { name: string; email: string }) {
 	const newUser = await prisma.user.create({
 		data: {
 			name: payload.name,
@@ -8,6 +10,12 @@ async function create(payload: any, prisma: any) {
 	return newUser;
 }
 
+async function getAll() {
+	const users = await prisma.user.findMany();
+	return users;
+}
+
 export default {
-	create
+	create,
+	getAll
 };

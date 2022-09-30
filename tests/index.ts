@@ -1,10 +1,6 @@
-// Tests
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import UserService from '../src/services/user/index';
-
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
 
 function generateFakeUser() {
   return {
@@ -16,7 +12,7 @@ function generateFakeUser() {
 describe('User controller', () => {
 	it('should create a new user', async () => {
 		let fakeUserPayload = generateFakeUser();
-		const user = await UserService.create(fakeUserPayload, prisma);
+		const user = await UserService.create(fakeUserPayload);
 		expect(user).to.be.an('object');
 		expect(user).to.have.property('name');
     expect(user).to.have.property('email');
@@ -27,7 +23,7 @@ describe('User controller', () => {
 		expect(user.email).to.equal(fakeUserPayload.email);
   });
   it('should get all users', async () => {
-    const users = await prisma.user.findMany();
+    const users = await UserService.getAll();
     expect(users).to.be.an('array');
     // Expect the array to have at least one user
     expect(users.length).to.be.greaterThan(0);
