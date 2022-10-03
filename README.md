@@ -1,6 +1,7 @@
-## Simple Typescript Sever template with Express.js, Winston and Morgan
+## PET Stack - Prisma, Express & Typescript
 
-This is a simple template for a typescript server with express.js, winston and morgan.
+This stack features express js at the backend with Prisma used for the Database Layer along with Typescript.
+The repository also makes use of the tests written in Mocha & Chai.
 
 ### How to use
 
@@ -29,7 +30,7 @@ This is a simple template for a typescript server with express.js, winston and m
 
 ## License
 
-Private License (c) 2022
+MIT (c) 2022
 
 #### Varun Kakkar
 
